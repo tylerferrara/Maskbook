@@ -40,13 +40,14 @@ interface NFTBadgeProps extends withClasses<'root' | 'text' | 'icon'> {
     width?: number
 }
 
-function formatPrice(amount: string) {
+function formatPrice(amount: string, symbol: string, slug: string) {
     const _amount = new BigNumber(amount ?? '0')
-    if (_amount.isZero()) return '0'
-    if (_amount.isLessThan(1)) return _amount.toFixed(2)
-    if (_amount.isLessThan(1e3)) return _amount.toFixed(1)
-    if (_amount.isLessThan(1e6)) return `${_amount.div(1e6).toFixed(1)}K`
-    return `${_amount.div(1e6).toFixed(1)}M`
+    const _slug = slug.toLocaleLowerCase() === 'ens' ? 'ENS' : ''
+    if (_amount.isZero()) return _slug
+    if (_amount.isLessThan(1)) return `${_amount.toFixed(2)} ${symbol} ${_slug}`
+    if (_amount.isLessThan(1e3)) return `${_amount.toFixed(1)} ${symbol} ${_slug}`
+    if (_amount.isLessThan(1e6)) return `${_amount.div(1e6).toFixed(1)}K ${symbol} ${_slug}`
+    return `${_amount.div(1e6).toFixed(1)}M ${symbol} ${_slug}`
 }
 
 function formatText(symbol: string, length: number) {
@@ -57,13 +58,13 @@ export function NFTBadge(props: NFTBadgeProps) {
     const { avatar, size = 140, width = 15 } = props
     const classes = useStylesExtends(useStyles({ size: size + width * 2, width }), props)
 
-    const { value = { amount: '0', symbol: 'ETH', name: '', owner: '' }, loading } = useNFT(
+    const { value = { amount: '0', symbol: 'ETH', name: '', owner: '', slug: '' }, loading } = useNFT(
         avatar.address,
         avatar.tokenId,
     )
 
     const address = useUserOwnerAddress(avatar.userId)
-    const { amount, symbol, name, owner } = value
+    const { amount, symbol, name, owner, slug } = value
     const { loading: loadingNFTVerified, value: NFTVerified } = useNFTVerified(avatar.address)
 
     return (
@@ -80,7 +81,7 @@ export function NFTBadge(props: NFTBadgeProps) {
                     strokeWidth={14}
                     stroke="black"
                     fontSize={9}
-                    text={loading || loadingNFTVerified ? 'loading...' : `${name} ${formatPrice(amount)} ${symbol}`}
+                    text={loading || loadingNFTVerified ? 'loading...' : `${name} ${formatPrice(amount, symbol, slug)}`}
                 />
             </Link>
         </div>
