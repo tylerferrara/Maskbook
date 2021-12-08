@@ -21,7 +21,7 @@ import injectCommentBoxAtMinds from './injection/CommentBox'
 import { injectPostBoxComposed } from './injection/inject'
 import { injectPostInspectorAtMinds } from './injection/PostInspector'
 import { injectPostReplacerAtMinds } from './injection/PostReplacer'
-import { injectSearchResultBoxAtMinds } from './injection/SearchResult'
+import { injectSearchResultAtMinds } from './injection/SearchResult'
 import { injectSetupPromptAtMinds } from './injection/SetupPrompt'
 import { injectToolboxHintAtMinds } from './injection/ToolboxHint'
 import { mindsShared } from './shared'
@@ -144,7 +144,7 @@ const mindsUI: SocialNetworkUI.Definition = {
         postInspector: injectPostInspectorAtMinds,
         enhancedPostRenderer: injectPostReplacerAtMinds,
         setupPrompt: injectSetupPromptAtMinds,
-        searchResult: injectSearchResultBoxAtMinds,
+        searchResult: injectSearchResultAtMinds,
         newPostComposition: {
             start: injectPostBoxComposed,
             supportedInputTypes: {
