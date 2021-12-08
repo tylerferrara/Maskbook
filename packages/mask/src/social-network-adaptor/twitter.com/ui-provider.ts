@@ -16,6 +16,7 @@ import { i18NOverwriteTwitter } from './customization/i18n'
 import { injectSearchResultAtTwitter } from './injection/SearchResult'
 import { injectProfileSliderAtTwitter } from './injection/ProfileSlider'
 import { injectProfileTabAtTwitter } from './injection/ProfileTab'
+import { injectProfilePageAtTwitter } from './injection/ProfilePage'
 import { injectPostReplacerAtTwitter } from './injection/PostReplacer'
 import { injectPageInspectorDefault } from '../../social-network/defaults/inject/PageInspector'
 import { injectSetupPromptAtTwitter } from './injection/SetupPrompt'
@@ -27,8 +28,6 @@ import { currentSelectedIdentity } from '../../settings/settings'
 import { injectPostInspectorAtTwitter } from './injection/PostInspector'
 import { ProfileIdentifier } from '../../database/type'
 import { unreachable } from '@dimensiondev/kit'
-import { injectEnhancedProfileTabAtTwitter } from './injection/EnhancedProfileTab'
-import { injectEnhancedProfileAtTwitter } from './injection/EnhancedProfile'
 import { makeStyles } from '@masknet/theme'
 import { injectNFTAvatarInTwitter } from './injection/NFT/NFTAvatarInTwitter'
 import { injectProfileNFTAvatarInTwitter } from './injection/NFT/ProfileNFTAvatar'
@@ -151,14 +150,13 @@ const twitterUI: SocialNetworkUI.Definition = {
     injection: {
         toolbox: injectToolboxHintAtTwitter,
         searchResult: injectSearchResultAtTwitter,
-        profileSlider: injectProfileSliderAtTwitter,
         profileTab: injectProfileTabAtTwitter,
+        profilePage: injectProfilePageAtTwitter,
+        profileSlider: injectProfileSliderAtTwitter,
         enhancedPostRenderer: injectPostReplacerAtTwitter,
         pageInspector: injectPageInspectorDefault(),
         postInspector: injectPostInspectorAtTwitter,
         setupPrompt: injectSetupPromptAtTwitter,
-        enhancedProfile: injectEnhancedProfileAtTwitter,
-        enhancedProfileTab: injectEnhancedProfileTabAtTwitter,
         newPostComposition: {
             start: injectPostBoxComposed,
             supportedInputTypes: {

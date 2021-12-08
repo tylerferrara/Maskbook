@@ -309,7 +309,7 @@ export namespace Plugin.SNSAdaptor {
 
     export interface ProfileSlider {
         /**
-         * The name of the newsletter
+         * The name of the slider card
          */
         label: I18NStringField | string
         /**
@@ -324,7 +324,7 @@ export namespace Plugin.SNSAdaptor {
 
     export interface ProfileTab {
         /**
-         * The name of the newsletter
+         * The name of the tab
          */
         label: I18NStringField | string
         /**

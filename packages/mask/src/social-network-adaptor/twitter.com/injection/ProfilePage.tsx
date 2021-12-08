@@ -8,20 +8,28 @@ import {
     searchProfileTabPageSelector,
 } from '../utils/selector'
 
-function injectEnhancedProfilePageForEmptyState(signal: AbortSignal) {
-    const watcher = new MutationObserverWatcher(searchProfileEmptySelector())
-    startWatch(watcher, signal)
-    createReactRootShadowed(watcher.firstDOMProxy.afterShadow, { signal }).render(<EnhancedProfilePageAtTwitter />)
+function ProfilePageAtTwitter() {
+    const newTweetButton = searchNewTweetButtonSelector().evaluate()
+    const style = newTweetButton ? window.getComputedStyle(newTweetButton) : EMPTY_STYLE
+    const fontStyle = newTweetButton?.firstChild
+        ? window.getComputedStyle(newTweetButton.firstChild as HTMLElement)
+        : EMPTY_STYLE
+
+    const { classes } = useStyles({ backgroundColor: style.backgroundColor, fontFamily: fontStyle.fontFamily })
+
+    return <EnhancedProfilePage classes={classes} />
 }
 
-function injectEnhancedProfilePageState(signal: AbortSignal) {
+function injectProfilePageForEmptyState(signal: AbortSignal) {
+    const watcher = new MutationObserverWatcher(searchProfileEmptySelector())
+    startWatch(watcher, signal)
+    createReactRootShadowed(watcher.firstDOMProxy.afterShadow, { signal }).render(<ProfilePageAtTwitter />)
+}
+
+function injectProfilePageState(signal: AbortSignal) {
     const watcher = new MutationObserverWatcher(searchProfileTabPageSelector())
     startWatch(watcher, signal)
-    createReactRootShadowed(watcher.firstDOMProxy.afterShadow, { signal }).render(<EnhancedProfilePageAtTwitter />)
-}
-export function injectEnhancedProfileAtTwitter(signal: AbortSignal) {
-    injectEnhancedProfilePageForEmptyState(signal)
-    injectEnhancedProfilePageState(signal)
+    createReactRootShadowed(watcher.firstDOMProxy.afterShadow, { signal }).render(<ProfilePageAtTwitter />)
 }
 
 const EMPTY_STYLE = {} as CSSStyleDeclaration
@@ -51,14 +59,7 @@ const useStyles = makeStyles<StyleProps>()((theme, props) => ({
     },
 }))
 
-export function EnhancedProfilePageAtTwitter() {
-    const newTweetButton = searchNewTweetButtonSelector().evaluate()
-    const style = newTweetButton ? window.getComputedStyle(newTweetButton) : EMPTY_STYLE
-    const fontStyle = newTweetButton?.firstChild
-        ? window.getComputedStyle(newTweetButton.firstChild as HTMLElement)
-        : EMPTY_STYLE
-
-    const { classes } = useStyles({ backgroundColor: style.backgroundColor, fontFamily: fontStyle.fontFamily })
-
-    return <EnhancedProfilePage classes={classes} />
+export function injectProfilePageAtTwitter(signal: AbortSignal) {
+    injectProfilePageForEmptyState(signal)
+    injectProfilePageState(signal)
 }
