@@ -60,7 +60,7 @@ function createERC721TokenAsset(asset: NFTScanAsset) {
         {
             name: json.name ?? 'unknown name',
             description: json.description ?? 'unknown symbol',
-            image: json.image || '',
+            mediaUrl: json.image || '',
             owner: asset.nft_holder ?? '',
         },
         asset.token_id,

@@ -64,7 +64,7 @@ function createERC721TokenAsset(address: string, tokenId: string, chainId: Chain
         {
             name: asset?.name ?? asset?.asset_contract.name ?? 'unknown name',
             description: asset?.description ?? '',
-            image: asset?.image_url_original ?? asset?.image_url ?? asset?.image_preview_url ?? '',
+            mediaUrl: asset?.image_url_original ?? asset?.image_url ?? asset?.image_preview_url ?? '',
             owner: asset?.owner.address ?? '',
         },
         tokenId,
