@@ -131,7 +131,6 @@
     "wallet_name": "錢包名稱",
     "wallet_rename": "重新命名錢包",
     "wallet_add_nft_invalid_owner": "此藏品不屬於你",
-    "wallet_loading_list": "讀取代幣列表中...",
     "wallet_loading_nft_contract": "加載NFT合約中...",
     "wallet_search_no_result": "無結果",
     "wallet_confirm_with_password": "確認密碼",
