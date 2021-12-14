@@ -44,6 +44,7 @@ export function SelectTokenDialog(props: SelectTokenDialogProps) {
     const classes = useStylesExtends(useStyles({ snsId: activatedSocialNetworkUI.networkIdentifier }), props)
     const chainId = useChainId()
     const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId)
+    // eslint-disable-next-line import/no-deprecated
     const isMdScreen = useMediaQuery<Theme>((theme) => theme.breakpoints.down('md'))
 
     const [id, setId] = useState('')
